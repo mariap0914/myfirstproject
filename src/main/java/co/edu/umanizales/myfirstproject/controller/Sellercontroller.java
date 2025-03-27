@@ -15,13 +15,13 @@ public class Sellercontroller {
         Location Pereira = new Location("Pereira","1600");
         Location Medellin = new Location("Medellin","67001");
         Location Armenia = new Location("Armenia","63001");
-        Location Cali = new Location("Cali","18001");
+        Location suiza = new Location("suiza","18001");
 
         Seller maria = new Seller("10002635",(byte) 15, "mar", "clavijo", Manizales, 'f');
         Seller paulina = new Seller("1235698", (byte) 25, "paulina", "salas",Pereira, 'f' );
         Seller jose = new Seller("1235698",(byte) 19, "jose", "mesa",Medellin, 'm' );
         Seller alex = new Seller("1235698",(byte) 12, "alex", "cardona", Armenia, 'm' );
-        Seller juan = new Seller("1235698", (byte) 37, "juan", "salazar",Cali , 'm' );
+        Seller juan = new Seller("1235698", (byte) 37, "juan", "salazar",suiza , 'm' );
 
 
 
