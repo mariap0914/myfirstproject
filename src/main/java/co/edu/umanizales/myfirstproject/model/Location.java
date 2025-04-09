@@ -12,9 +12,6 @@ public class Location {
     private  String descripcion;
     private  String code;
 
-
-
-
     }
 
 
