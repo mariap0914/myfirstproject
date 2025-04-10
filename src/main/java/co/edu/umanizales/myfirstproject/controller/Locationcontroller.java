@@ -1,6 +1,6 @@
 package co.edu.umanizales.myfirstproject.controller;
 
-import co.edu.umanizales.myfirstproject.model.Location;
+
 import co.edu.umanizales.myfirstproject.service.LocationService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,16 +14,28 @@ import java.io.IOException;
 @RestController
 @RequestMapping(path = "location")
 public class Locationcontroller {
+    LocationService locationService;
+
+    public void LocationController(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     @GetMapping
-    public String getLocation(){
+    public String mostrarArchivo(){
 
-        //CREAMOS OBJETO
-        LocationService archivo  = new LocationService();
-        archivo.leerArchivo("C:\\Users\\clavi\\Downloads\\locations.csv");
+        locationService.leerArchivo ("C:\\Users\\clavi\\Downloads\\locations.csv");
 
 
-        return "";
+        StringBuilder contenido = new StringBuilder();
+        try (BufferedReader lector = new BufferedReader(new FileReader("C:\\Users\\clavi\\Downloads\\locations.csv"))) {
+            String linea;
+            while ((linea = lector.readLine()) != null) {
+                contenido.append(linea).append("<br>");
+            }
+        } catch (IOException e) {
+            return "Error al leer el archivo: " + e.getMessage();
+        }
+        return contenido.toString();
     }
 
 }

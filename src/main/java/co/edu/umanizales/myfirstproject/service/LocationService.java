@@ -2,19 +2,19 @@ package co.edu.umanizales.myfirstproject.service;
 
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
+import java.util.List;
 
 public class LocationService {
     //lee el archivo
-    private BufferedReader lector;
+    private static BufferedReader lector;
     //recibe la linea de cada fila
-    private String linea;
+    private static String linea;
     // almacena cada linea
-    private String partes[]= null;
+    private static String[] partes = null;
 
-public void leerArchivo(String locations){
+    public static List<String[]> leerArchivo(String locations){
+
 
         try{
             lector = new BufferedReader(new FileReader(locations));
@@ -29,9 +29,10 @@ public void leerArchivo(String locations){
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,e);
         }
-}
+        return null;
+    }
 
-    public void imprimirLinea() {
+    public static void imprimirLinea() {
     for(int i=0;i<partes.length;i++){
     System.out.println(partes[i]+"");}
     }
