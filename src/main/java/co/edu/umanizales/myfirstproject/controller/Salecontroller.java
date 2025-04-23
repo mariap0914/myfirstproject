@@ -14,7 +14,7 @@ public class Salecontroller {
     public String getSale(){
 
 
-        return "venta";
+        return "sale";
     }
 
 }

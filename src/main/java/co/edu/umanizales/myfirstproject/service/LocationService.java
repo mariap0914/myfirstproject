@@ -1,43 +1,94 @@
 package co.edu.umanizales.myfirstproject.service;
 
-import javax.swing.*;
-import java.io.BufferedReader;
+import co.edu.umanizales.myfirstproject.model.Location;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
+
+@Service
+@Getter
 public class LocationService {
-    //lee el archivo
-    private static BufferedReader lector;
-    //recibe la linea de cada fila
-    private static String linea;
-    // almacena cada linea
-    private static String[] partes = null;
+    private List<Location> locations;
+    @Value("DIVIPOLA-_C_digos_municipios_20250422.csv")
+    private String locationsFilename;
 
-    public static List<String[]> leerArchivo(String locations){
+     @PostConstruct
+    public void readLocationsFromCVS() throws IOException, URISyntaxException {
+         locations = new ArrayList<>();
+         locations.add(new Location("05","ANTIOQUIA"));
+         locations.add(new Location("17","CALDAS"));
+         locations.add(new Location("66","RISARALDA"));
+         locations.add(new Location("91","AMAZONAS"));
+         locations.add(new Location("08","ATLANTICO"));
+         locations.add(new Location("11","BOGOTA"));
+         locations.add(new Location("13","BOLIVAR"));
+         locations.add(new Location("15","BOYACA"));
+         locations.add(new Location("18","CAQUETA"));
+         locations.add(new Location("19","CAUCA"));
+         locations.add(new Location("85","CASANARE"));
+         locations.add(new Location("20","CESAR"));
+         locations.add(new Location("70","SUCRE"));
+         locations.add(new Location("73","TOLIMA"));
+         locations.add(new Location("76","VALLE"));
+         locations.add(new Location("99","VICHADA"));
+         locations.add(new Location("97","VAUPES"));
+         locations.add(new Location("81","ARAUCA"));
+         Path pathFile = Paths.get(ClassLoader.getSystemResource(locationsFilename).toURI());
+
+         try (CSVReader csvReader = new CSVReader(new FileReader(pathFile.toString()))){
+             String [] line;
+             csvReader.skip(1);
+             //leertodas las filas del csv
+             while ((line = csvReader.readNext()) !=null){
+                 locations.add(new Location(line[2],line[3]));
+             }
+         } catch (IOException e) {
+             e.printStackTrace();
+             throw e; //Lanza la excepcion para que pueda manejarse en la capa superior si es necesario
 
 
-        try{
-            lector = new BufferedReader(new FileReader(locations));
-            while ((linea=lector.readLine())!=null){
-                partes = linea.split(",");
-                imprimirLinea();
-                System.out.println();
-            }
-            lector.close();
-            lector = null;
-            partes=null;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,e);
-        }
-        return null;
-    }
+         } catch (CsvValidationException e) {
+             throw new RuntimeException(e);
+         }
 
-    public static void imprimirLinea() {
-    for(int i=0;i<partes.length;i++){
-    System.out.println(partes[i]+"");}
-    }
+     }
 
-    }//fin clase
+   public Location getLocationsByCode(String code) {
+         for (Location location : locations) {
+             if (location.getCode().equals(code)) {
+                 return location;
+             }
+         }
+         return null;
+     }
+     public List<Location> getStates() {
+         List<Location> states = new ArrayList<>();
+         for (Location location : locations) {
+             if(location.getCode().length() ==2){
+                 states.add(location);
+             }
+
+
+         }
+         return states;
+     }
+
+
+
+}
+
 
 
 

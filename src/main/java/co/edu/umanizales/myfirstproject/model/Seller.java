@@ -9,14 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Seller {
-
-
     private String identification;
-    private byte age;
     private String name;
-    private String lastname;
-    private Location city;
+    private String lastName;
     private char gender;
+    private byte age;
+    private Location city;
 
 
 

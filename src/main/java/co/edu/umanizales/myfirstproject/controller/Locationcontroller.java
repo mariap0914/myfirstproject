@@ -1,41 +1,40 @@
 package co.edu.umanizales.myfirstproject.controller;
 
 
+import co.edu.umanizales.myfirstproject.model.Location;
 import co.edu.umanizales.myfirstproject.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
+import java.util.List;
 
 @RestController
-@RequestMapping(path = "location")
+@RequestMapping(path = "/location")
 public class Locationcontroller {
-    LocationService locationService;
 
-    public void LocationController(LocationService locationService) {
-        this.locationService = locationService;
-    }
-
+    @Autowired
+    private LocationService locationService;
     @GetMapping
-    public String mostrarArchivo(){
+    public  List<Location> getLocations() {
+        return locationService.getLocations();
 
-        locationService.leerArchivo ("C:\\Users\\clavi\\Downloads\\locations.csv");
 
-
-        StringBuilder contenido = new StringBuilder();
-        try (BufferedReader lector = new BufferedReader(new FileReader("C:\\Users\\clavi\\Downloads\\locations.csv"))) {
-            String linea;
-            while ((linea = lector.readLine()) != null) {
-                contenido.append(linea).append("<br>");
-            }
-        } catch (IOException e) {
-            return "Error al leer el archivo: " + e.getMessage();
-        }
-        return contenido.toString();
     }
+     @GetMapping(path = "/{code}")
+    public Location getLocation(@PathVariable String code) {
+        return locationService.getLocationsByCode(code);
+     }
+
+    @GetMapping(path = "/states")
+    public List<Location> getLocationsByStates(){
+        return locationService.getStates();
+     }
+
+
+
+
 
 }
