@@ -64,7 +64,7 @@ public class LocationService {
          }
 
      }
-
+   // ciclo que sirve para entregar una ubicacion especifica con el codigo dado
    public Location getLocationsByCode(String code) {
          for (Location location : locations) {
              if (location.getCode().equals(code)) {
@@ -73,6 +73,7 @@ public class LocationService {
          }
          return null;
      }
+     //ciclo que sirve para Ver únicamente los departamentos
      public List<Location> getStates() {
          List<Location> states = new ArrayList<>();
          for (Location location : locations) {
@@ -86,7 +87,7 @@ public class LocationService {
      }
 
 
-
+    //ciclo que entrega unalista de capitales y de departamento.
     public List<Location> getCapitals() {
         List<Location> capitals = new ArrayList<>();
         for (Location location : locations) {
@@ -96,7 +97,7 @@ public class LocationService {
         }
         return capitals;
     }
-
+    //ciclo que entrega una Lista de ubicaciones cuyos nombres comienzan con ciertas letras.
     public List<Location> getLocationsByInitialLetters(String letters) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
@@ -106,7 +107,7 @@ public class LocationService {
         }
         return result;
     }
-
+    //ciclo que entrega Ubicación cuyo nombre coincide exactamente con el parámetro.
     public Location getLocationByName(String name) {
         for (Location location : locations) {
             if (location.getDescription().equalsIgnoreCase(name)) {
@@ -115,7 +116,7 @@ public class LocationService {
         }
         return null;
     }
-
+    //ciclo que entrega Un solo estado (departamento) según su código exacto (solo si tiene 2 dígitos)
     public Location getStateByCode(String code) {
         for (Location location : locations) {
             if (location.getCode().length() == 2 && location.getCode().equals(code)) {
@@ -124,7 +125,7 @@ public class LocationService {
         }
         return null;
     }
-
+     //ciclo que Filtra solo los municipios de un departamento específico.
     public List<Location> getLocationsByStateCode(String stateCode) {
         List<Location> result = new ArrayList<>();
         for (Location location : locations) {
