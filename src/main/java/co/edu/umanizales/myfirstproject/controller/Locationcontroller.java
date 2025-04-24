@@ -33,6 +33,33 @@ public class Locationcontroller {
         return locationService.getStates();
      }
 
+    @GetMapping("/capitals")
+    public List<Location> getCapitals() {
+        return locationService.getCapitals();
+    }
+
+    @GetMapping("/letters/{letters}")
+    public List<Location> getLocationsByInitialLetters(@PathVariable String letters) {
+        return locationService.getLocationsByInitialLetters(letters);
+    }
+
+    @GetMapping("/name/{name}")
+    public Location getLocationByName(@PathVariable String name) {
+        return locationService.getLocationByName(name);
+    }
+
+    @GetMapping("/states/{code}")
+    public Location getStateByCode(@PathVariable String code) {
+        return locationService.getStateByCode(code);
+    }
+
+    @GetMapping("/locations/state/{stateCode}")
+    public List<Location> getLocationsByStateCode(@PathVariable String stateCode) {
+        return locationService.getLocationsByStateCode(stateCode);
+    }
+
+
+
 
 
 

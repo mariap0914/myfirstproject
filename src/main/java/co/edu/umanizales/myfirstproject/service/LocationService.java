@@ -27,7 +27,7 @@ public class LocationService {
      @PostConstruct
     public void readLocationsFromCVS() throws IOException, URISyntaxException {
          locations = new ArrayList<>();
-         locations.add(new Location("05","ANTIOQUIA"));
+         locations.add(new Location("05", "ANTIOQUIA"));
          locations.add(new Location("17","CALDAS"));
          locations.add(new Location("66","RISARALDA"));
          locations.add(new Location("91","AMAZONAS"));
@@ -87,7 +87,63 @@ public class LocationService {
 
 
 
+    public List<Location> getCapitals() {
+        List<Location> capitals = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().length() == 5) {
+                capitals.add(location);
+            }
+        }
+        return capitals;
+    }
+
+    public List<Location> getLocationsByInitialLetters(String letters) {
+        List<Location> result = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getDescription().toLowerCase().startsWith(letters.toLowerCase())) {
+                result.add(location);
+            }
+        }
+        return result;
+    }
+
+    public Location getLocationByName(String name) {
+        for (Location location : locations) {
+            if (location.getDescription().equalsIgnoreCase(name)) {
+                return location;
+            }
+        }
+        return null;
+    }
+
+    public Location getStateByCode(String code) {
+        for (Location location : locations) {
+            if (location.getCode().length() == 2 && location.getCode().equals(code)) {
+                return location;
+            }
+        }
+        return null;
+    }
+
+    public List<Location> getLocationsByStateCode(String stateCode) {
+        List<Location> result = new ArrayList<>();
+        for (Location location : locations) {
+            if (location.getCode().startsWith(stateCode) && location.getCode().length() > 2) {
+                result.add(location);
+            }
+        }
+        return result;
+    }
+
+
+
+
 }
+
+
+
+
+
 
 
 
