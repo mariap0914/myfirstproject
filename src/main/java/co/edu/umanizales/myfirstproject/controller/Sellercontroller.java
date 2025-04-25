@@ -1,23 +1,31 @@
 package co.edu.umanizales.myfirstproject.controller;
 
-import co.edu.umanizales.myfirstproject.model.Location;
+
+import co.edu.umanizales.myfirstproject.model.Seller;
+
+import co.edu.umanizales.myfirstproject.service.SellerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+
 @RestController
 @RequestMapping(path = "/seller")
 public class Sellercontroller {
+
+    @Autowired
+    private SellerService sellerService;
+
     @GetMapping
-    public Location Getseller(){
-        Location Manizales = new Location("Manizales","17001");
-        Location Pereira = new Location("Pereira","1600");
-        Location Medellin = new Location("Medellin","67001");
-        Location Armenia = new Location("Armenia","63001");
-        Location suiza = new Location("suiza","18001");
-
-
-        return suiza;
+    public List<Seller> getAllSellers() {
+        return sellerService.getAllSellers();
     }
 
+
 }
+
+
+

@@ -23,8 +23,7 @@ public class LocationService {
     private List<Location> locations;
     @Value("DIVIPOLA-_C_digos_municipios_20250422.csv")
     private String locationsFilename;
-
-     @PostConstruct
+    @PostConstruct
     public void readLocationsFromCVS() throws IOException, URISyntaxException {
          locations = new ArrayList<>();
          locations.add(new Location("05", "ANTIOQUIA"));
@@ -135,11 +134,23 @@ public class LocationService {
         }
         return result;
     }
+    public List<Location> getLocationsWithNameLongerThan(int length) {
+        List<Location> result = new ArrayList<>();
+
+        for (Location location : locations) {
+            if (location.getCode().length() == 5) { // Solo localidades
+                if (location.getDescription().length() > length) {
+                    result.add(location);
+                }
+            }
+        }
+
+        return result;
+    }
 
 
+    }
 
-
-}
 
 
 

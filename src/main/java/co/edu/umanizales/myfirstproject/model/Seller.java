@@ -17,5 +17,4 @@ public class Seller {
     private Location city;
 
 
-
 }
