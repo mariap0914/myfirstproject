@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 public class LocationService {
     private List<Location> locations;
-    @Value("DIVIPOLA-_C_digos_municipios_20250422.csv")
+    @Value("${location_file}")
     private String locationsFilename;
     @PostConstruct
     public void readLocationsFromCVS() throws IOException, URISyntaxException {
